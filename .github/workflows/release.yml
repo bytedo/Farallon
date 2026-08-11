@@ -1,0 +1,42 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build theme zip
+        run: |
+          # 以 Farallon-main 为顶层目录打包（WordPress 主题安装格式）
+          mkdir -p dist/Farallon-main
+          rsync -a \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='node_modules' \
+            --exclude='package-lock.json' \
+            ./ dist/Farallon-main/
+          cd dist
+          zip -r ../Farallon-main.zip Farallon-main
+          cd ..
+          echo "=== zip 内容确认 ==="
+          unzip -l Farallon-main.zip | head -8
+          echo "..."
+          unzip -l Farallon-main.zip | tail -2
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: Farallon-main.zip
+          body_path: RELEASE_NOTES.md
+          generate_release_notes: false
+          fail_on_unmatched_files: true
