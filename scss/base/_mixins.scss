@@ -1,0 +1,163 @@
+@mixin block-meta {
+    font-size: var(--farallon-text-size-small);
+    color: var(--farallon-text-gray-lightest);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 2px;
+
+    time {
+        display: flex;
+        align-items: center;
+    }
+
+    svg {
+        margin-right: 4px;
+        fill: var(--farallon-text-gray-lightest);
+        margin-left: 10px;
+        &:first-child {
+            margin-left: 0;
+        }
+    }
+
+    a {
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        font-size: 12px;
+    }
+}
+
+@mixin centered {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@mixin sns-icons {
+    display: flex;
+    align-items: center;
+    --farallon-icon-size: 20px;
+
+    a {
+        margin: 0 10px 0 0;
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    svg {
+        fill: var(--farallon-text-color);
+        width: var(--farallon-icon-size);
+        height: var(--farallon-icon-size);
+
+        &:hover {
+            fill: var(--farallon-hover-color);
+        }
+
+        &.sns {
+            fill: none;
+            stroke: var(--farallon-text-color);
+
+            &:hover {
+                stroke: var(--farallon-hover-color);
+                fill: none;
+            }
+        }
+    }
+}
+
+@mixin navigation {
+    //border-radius: 999rem;
+
+    padding: 20px;
+    --farallon-navigation-font-size: 20px;
+    color: var(--farallon-text-light);
+
+    &:hover {
+        color: var(--farallon-hover-color);
+    }
+    // border: 1px solid #eee;
+    &.current {
+        font-size: var(--farallon-navigation-font-size);
+        font-weight: bold;
+        cursor: not-allowed;
+        body:not(.is-cleanMode) & {
+            &:after {
+                border: 12px solid transparent;
+                background-clip: padding-box;
+                content: '';
+                filter: blur(36px);
+                height: 50%;
+                opacity: 0.8;
+                position: absolute;
+                width: 50%;
+                //z-index: -1;
+                background-image: linear-gradient(165deg, #007cf0, #00dfd8);
+                left: 0;
+            }
+        }
+
+        body.dark:not(.is-cleanMode) & {
+            &:after {
+                background-image: linear-gradient(180deg, #1e1e1e, #121212);
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body.auto:not(.is-cleanMode) & {
+                &:after {
+                    background-image: linear-gradient(180deg, #1e1e1e, #121212);
+                }
+            }
+        }
+    }
+
+    &.dots {
+        color: var(--farallon-text-gray);
+    }
+    position: relative;
+}
+
+@mixin block-hover-gradient {
+    &:hover {
+        background-color: rgba(234, 243, 255, 0.5);
+        background-image: linear-gradient(12deg, #fff 50%, hsla(0, 0%, 100%, 0));
+        // border-radius: 18px;
+        transform: none;
+        transform-origin: 50% 50% 0px;
+    }
+
+    .dark & {
+        &:hover {
+            background: linear-gradient(180deg, #1e1e1e, #121212);
+        }
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .auto & {
+            &:hover {
+                background: linear-gradient(180deg, #1e1e1e, #121212);
+            }
+        }
+    }
+}
+
+@mixin dark-variables {
+    --farallon-main-color: var(--farallon-dark-main-color);
+    --farallon-hover-color: var(--farallon-dark-hover-color);
+    --farallon-text-color: #a1a1aa;
+    --farallon-text-light: rgba(161, 161, 170, 1);
+    --farallon-text-gray: rgba(113, 113, 122, 1);
+    --farallon-text-gray-lightest: rgba(113, 113, 122, 0.95);
+
+    --farallon-background-white: #1e1e1e;
+    --farallon-background-gray: #000;
+    --farallon-background-gray-light: #1e1e1e;
+    --farallon-background-white-opacity: rgba(30, 30, 30, var(--farallon-background-opacity));
+
+    --farallon-border-color: rgba(63, 63, 70, 0.6);
+    --farallon-border-color-light: rgba(63, 63, 70, 0.4);
+}

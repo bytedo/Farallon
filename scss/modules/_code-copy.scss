@@ -1,0 +1,57 @@
+// 代码块复制按钮样式
+// 依赖 pre 为相对定位，按钮悬停显示
+
+// 修正主题样式覆盖：确保 VS2015 深色主题生效
+// 主题 .fGraph pre/code 设置了浅灰背景，特异性高于 .hljs，需要兜底
+pre code.hljs {
+    background-color: #1e1e1e !important; // VS2015 深色背景
+    color: #dcdcdc !important; // VS2015 默认文字色
+}
+
+pre {
+    position: relative; // 给绝对定位的按钮做参考系
+
+    &:hover .farallon-copy-btn {
+        opacity: 1;
+    }
+}
+
+.farallon-copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 20;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 32px;
+    height: 32px;
+    padding: 0;
+
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+
+    color: #aaa;
+    cursor: pointer;
+    opacity: 0; // 默认隐藏
+    transition: all 0.2s ease;
+
+    &:hover {
+        background-color: var(--farallon-main-color, #0056cc);
+        border-color: var(--farallon-main-color, #0056cc);
+        color: #fff;
+    }
+
+    &.copied {
+        border-color: #4caf50;
+        color: #4caf50;
+        opacity: 1;
+    }
+
+    svg {
+        display: block;
+    }
+}

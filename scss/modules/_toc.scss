@@ -1,0 +1,113 @@
+// 右侧固定目录导航 (TOC)
+// 参考 AstroPaper 风格：宽屏右侧悬浮、滚动高亮当前章节
+
+.farallon-toc {
+    position: fixed;
+    top: 96px;
+    right: 24px;
+    z-index: 90;
+
+    width: 224px;
+    max-height: calc(100vh - 160px);
+    overflow-y: auto;
+
+    padding: 12px 4px 12px 0;
+
+    // 窄屏隐藏（正文 1000px 居中，屏幕 <1680px 时右侧无足够空间）
+    @media (max-width: 1679px) {
+        display: none;
+    }
+
+    // 目录标题
+    .farallon-toc--title {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--farallon-meta-color, #999);
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+        padding-left: 12px;
+    }
+
+    // 目录列表
+    .farallon-toc--list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        border-left: 1px solid var(--farallon-border-color, rgba(0, 0, 0, 0.08));
+    }
+
+    .farallon-toc--item {
+        margin: 0;
+        line-height: 1.5;
+
+        a {
+            display: block;
+            padding: 4px 0 4px 12px;
+            font-size: 13px;
+            color: var(--farallon-meta-color, #888);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            margin-left: -1px;
+            transition: color 0.2s ease, border-color 0.2s ease;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+            &:hover {
+                color: var(--farallon-main-color, #0056cc);
+            }
+
+            &.is-active {
+                color: var(--farallon-main-color, #0056cc);
+                border-left-color: var(--farallon-main-color, #0056cc);
+                font-weight: 500;
+            }
+        }
+
+        // 三级标题缩进
+        &.is-h3 a {
+            padding-left: 24px;
+            font-size: 12.5px;
+        }
+
+        // 四级标题再缩进
+        &.is-h4 a {
+            padding-left: 36px;
+            font-size: 12px;
+        }
+    }
+
+    // 暗色模式适配
+    body.dark & {
+        .farallon-toc--list {
+            border-left-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .farallon-toc--item a {
+            color: rgba(255, 255, 255, 0.45);
+
+            &:hover,
+            &.is-active {
+                color: #fff;
+            }
+        }
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    body.auto .farallon-toc {
+        .farallon-toc--list {
+            border-left-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .farallon-toc--item a {
+            color: rgba(255, 255, 255, 0.45);
+
+            &:hover,
+            &.is-active {
+                color: #fff;
+            }
+        }
+    }
+}
